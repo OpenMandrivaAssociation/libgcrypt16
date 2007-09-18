@@ -1,9 +1,10 @@
 %define name		libgcrypt
 %define version		1.2.4
-%define release		%mkrel 1
+%define release		%mkrel 2
 
 %define major		11
 %define libname		%mklibname gcrypt %{major}
+%define develname	%mklibname -d gcrypt
 
 # disable tests by default, no /dev/random feed, no joy
 %define do_check 0
@@ -31,11 +32,12 @@ Summary:	GNU Cryptographic library
 Group:          System/Libraries
 Provides:       %{name} = %{version}-%{release}
 
-%package	-n %{libname}-devel
+%package	-n %{develname}
 Summary:	Development files for GNU cryptographic library
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d gcrypt 11
 
 %description
 Libgcrypt is a general purpose cryptographic library
@@ -57,7 +59,7 @@ public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
 
 
-%description -n %{libname}-devel
+%description -n %{develname}
 Libgcrypt is a general purpose cryptographic library
 based on the code from GNU Privacy Guard.
 This package contains files needed to develop
@@ -89,10 +91,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun -n %{libname} -p /sbin/ldconfig
 
-%post -n %{libname}-devel
+%post -n %{develname}
 %_install_info %{name}.info
 
-%postun -n %{libname}-devel
+%postun -n %{develname}
 %_remove_install_info %{name}.info
 
 
@@ -101,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.so.*
 %doc AUTHORS COPYING COPYING.LIB README NEWS THANKS TODO
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc ChangeLog README.*
 
