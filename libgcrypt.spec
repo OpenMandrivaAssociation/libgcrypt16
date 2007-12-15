@@ -1,6 +1,6 @@
 %define name		libgcrypt
-%define version		1.2.4
-%define release		%mkrel 2
+%define version		1.4.0
+%define release		%mkrel 1
 
 %define major		11
 %define libname		%mklibname gcrypt %{major}
@@ -14,7 +14,7 @@ Summary: 	GNU Cryptographic library
 Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
-License: 	LGPL
+License: 	LGPLv2+
 Group: 		System/Libraries
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-buildroot
 Url: 		http://www.gnupg.org/
@@ -23,7 +23,7 @@ Url: 		http://www.gnupg.org/
 Source0: 	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
-Patch2:		libgcrypt-1.2.3-ppc64.patch
+#Patch2:		libgcrypt-1.2.3-ppc64.patch
 
 BuildRequires:	libgpg-error-devel >= 0.5
 
@@ -69,7 +69,7 @@ applications using libgcrypt. ( For example Ägypten project )
 %prep
 %setup -q
 %patch1 -p1 -b .libdir
-%patch2 -p1 -b .ppc64
+#%patch2 -p1 -b .ppc64
 
 %build
 %configure2_5x
@@ -100,7 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so.%{major}
+%{_libdir}/lib*.so.%{major}.*
 %doc AUTHORS COPYING COPYING.LIB README NEWS THANKS TODO
 
 %files -n %{develname}
