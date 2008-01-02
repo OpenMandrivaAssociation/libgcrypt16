@@ -16,6 +16,7 @@ Version: 	%{version}
 Release: 	%{release}
 License: 	LGPLv2+
 Group: 		System/Libraries
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-buildroot
 Url: 		http://www.gnupg.org/
 
 # don't convert to bzip2, since we ship archive signature
