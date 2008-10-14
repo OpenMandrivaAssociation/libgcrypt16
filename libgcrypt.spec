@@ -8,8 +8,8 @@
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
-Version:	1.4.1
-Release:	%mkrel 2
+Version:	1.4.3
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
