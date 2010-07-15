@@ -8,7 +8,7 @@
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
-Version:	1.4.5
+Version:	1.4.6
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
@@ -63,7 +63,10 @@ applications using libgcrypt. ( For example Ägypten project )
 #%patch2 -p1 -b .ppc64
 
 %build
-%configure2_5x
+%configure2_5x \
+	--disable-dev-random \
+	--enable-random-daemon \
+	--enable-m-guard
 %make
 
 %check
@@ -95,6 +98,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
+%{_sbindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
 
