@@ -17,8 +17,8 @@ Url:		http://www.gnupg.org/
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
-#Patch2:		libgcrypt-1.2.3-ppc64.patch
 BuildRequires:	libgpg-error-devel >= 0.5
+BuildRequires:	%{_lib}pth-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
