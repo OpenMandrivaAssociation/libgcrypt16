@@ -9,7 +9,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.4.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -77,6 +77,7 @@ make check
 %install
 rm -rf %{buildroot}
 %makeinstall_std
+%multiarch_binaries $RPM_BUILD_ROOT/%{_sbindir}/gcryptrnd
 
 %clean
 rm -rf %{buildroot}
@@ -98,7 +99,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
-%{_sbindir}/gcryptrnd
+%multiarch %{multiarch_sbindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
 
