@@ -1,5 +1,3 @@
-%define multiarch_sbindir	%{_sbindir}/%{multiarch_platform}
-
 %define major 11
 %define libname %mklibname gcrypt %{major}
 %define develname %mklibname gcrypt -d
@@ -11,7 +9,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.4.6
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -79,6 +77,7 @@ make check
 rm -rf %{buildroot}
 %makeinstall_std
 mv $RPM_BUILD_ROOT/%{_sbindir}/gcryptrnd $RPM_BUILD_ROOT/%{_bindir}/gcryptrnd
+%multiarch_binaries $RPM_BUILD_ROOT/%{_bindir}/gcryptrnd
 
 %clean
 rm -rf %{buildroot}
@@ -100,7 +99,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
-%{_bindir}/gcryptrnd
+%multiarch %{multiarch_bindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
 
