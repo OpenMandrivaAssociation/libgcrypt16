@@ -1,3 +1,5 @@
+%define multiarch_sbindir	%{_sbindir}/%{multiarch_platform}
+
 %define major 11
 %define libname %mklibname gcrypt %{major}
 %define develname %mklibname gcrypt -d
@@ -60,7 +62,6 @@ applications using libgcrypt. ( For example Ägypten project )
 %prep
 %setup -q
 %patch1 -p1 -b .libdir
-#%patch2 -p1 -b .ppc64
 
 %build
 %configure2_5x \
@@ -77,7 +78,7 @@ make check
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-%multiarch_binaries $RPM_BUILD_ROOT/%{_sbindir}/gcryptrnd
+mv $RPM_BUILD_ROOT/%{_sbindir}/gcryptrnd $RPM_BUILD_ROOT/%{_bindir}/gcryptrnd
 
 %clean
 rm -rf %{buildroot}
@@ -99,7 +100,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
-%multiarch %{multiarch_sbindir}/gcryptrnd
+%{_bindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
 
