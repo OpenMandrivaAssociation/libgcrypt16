@@ -8,14 +8,15 @@
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
-Version:	1.4.6
-Release:	%mkrel 3
+Version:	1.5.0
+%define	prerel	beta1
+Release:	%mkrel %{?prerel:0.%{prerel}.}1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
 # don't convert to bzip2, since we ship archive signature
-Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
+Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}%{?prerel:-%{prerel}}.tar.bz2
+Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}%{?prerel:-%{prerel}}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	%{_lib}pth-devel
@@ -58,11 +59,13 @@ This package contains files needed to develop
 applications using libgcrypt. ( For example Ägypten project )
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}%{?prerel:-%{prerel}}
 %patch1 -p1 -b .libdir
 
 %build
 %configure2_5x \
+	--enable-shared \
+	--enable-static \
 	--disable-dev-random \
 	--enable-random-daemon \
 	--enable-m-guard
