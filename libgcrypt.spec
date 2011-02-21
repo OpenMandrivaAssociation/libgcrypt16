@@ -19,7 +19,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}%{?prerel:-%{pre
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}%{?prerel:-%{prerel}}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
 BuildRequires:	libgpg-error-devel >= 0.5
-BuildRequires:	%{_lib}pth-devel
+BuildRequires:	pth-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -31,12 +31,11 @@ RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
 public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
 
-%package -n %{libname}
+%package -n	%{libname}
 Summary:	GNU Cryptographic library
 Group:		System/Libraries
-Provides:	%{name} = %{version}-%{release}
 
-%description -n %{libname}
+%description -n	%{libname}
 Libgcrypt is a general purpose cryptographic library
 based on the code from GNU Privacy Guard.  It provides functions for all
 cryptograhic building blocks: symmetric ciphers
@@ -45,14 +44,14 @@ RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
 public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
 
-%package -n %{develname}
+%package -n	%{develname}
 Summary:	Development files for GNU cryptographic library
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%mklibname -d gcrypt 11
 
-%description -n %{develname}
+%description -n	%{develname}
 Libgcrypt is a general purpose cryptographic library
 based on the code from GNU Privacy Guard.
 This package contains files needed to develop
@@ -79,8 +78,8 @@ make check
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-mv $RPM_BUILD_ROOT/%{_sbindir}/gcryptrnd $RPM_BUILD_ROOT/%{_bindir}/gcryptrnd
-%multiarch_binaries $RPM_BUILD_ROOT/%{_bindir}/gcryptrnd
+mv $RPM_BUILD_ROOT%{_sbindir}/gcryptrnd $RPM_BUILD_ROOT%{_bindir}/gcryptrnd
+%multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/gcryptrnd
 
 %clean
 rm -rf %{buildroot}
