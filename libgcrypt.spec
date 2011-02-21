@@ -94,12 +94,15 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
 %multiarch %{multiarch_bindir}/gcryptrnd
+%{_bindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
 
 %files -n %{develname}
 %defattr(-,root,root)
 %doc ChangeLog README.*
+%exclude %{multiarch_bindir}/gcryptrnd
+%exclude %{_bindir}/gcryptrnd
 %{_bindir}/*
 %{_includedir}/*.h
 %{_libdir}/lib*.a
