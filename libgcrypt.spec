@@ -93,7 +93,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README NEWS THANKS TODO
-%multiarch %{multiarch_bindir}/gcryptrnd
+%{multiarch_bindir}/gcryptrnd
 %{_bindir}/gcryptrnd
 %{_libdir}/lib*.so.%{major}
 %{_libdir}/lib*.so.%{major}.*
