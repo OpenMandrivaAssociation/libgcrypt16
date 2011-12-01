@@ -77,8 +77,8 @@ make check
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-mv $RPM_BUILD_ROOT%{_sbindir}/gcryptrnd $RPM_BUILD_ROOT%{_bindir}/gcryptrnd
-%multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/gcryptrnd
+mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
+%multiarch_binaries %{buildroot}%{_bindir}/gcryptrnd
 
 %clean
 rm -rf %{buildroot}
