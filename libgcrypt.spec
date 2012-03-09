@@ -16,6 +16,7 @@ Url:		http://www.gnupg.org/
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
+Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	pth-devel
 
@@ -57,6 +58,7 @@ applications using libgcrypt. ( For example Ägypten project )
 %prep
 %setup -q
 %patch1 -p1 -b .libdir~
+%patch2 -p1 -b .volatile~
 
 %build
 %configure2_5x \
