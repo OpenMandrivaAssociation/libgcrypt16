@@ -8,7 +8,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.5.0
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -76,8 +76,12 @@ make check
 
 %install
 %makeinstall_std
+
 mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
+
 %multiarch_binaries %{buildroot}%{_bindir}/gcryptrnd
+
+rm -f %{buildroot}%{_libdir}/lib*.la
 
 %post -n %{devname}
 %_install_info %{name}.info
@@ -99,7 +103,6 @@ mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
 %{_bindir}/*
 %{_includedir}/*.h
 %{_libdir}/lib*.a
-%{_libdir}/lib*.la
 %{_libdir}/lib*.so
 %{_datadir}/aclocal/*
 %{_infodir}/gcrypt.info*
