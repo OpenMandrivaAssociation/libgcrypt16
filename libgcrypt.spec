@@ -98,7 +98,7 @@ rm -f %{buildroot}%{_libdir}/lib*.la
 
 %files -n %{devname}
 %doc ChangeLog README.*
-%exclude %{multiarch_bindir}/gcryptrnd
+%exclude %{multiarch_bindir}
 %exclude %{_bindir}/gcryptrnd
 %{_bindir}/*
 %{_includedir}/*.h
