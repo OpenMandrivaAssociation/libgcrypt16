@@ -88,17 +88,17 @@ mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
 %doc AUTHORS README NEWS THANKS TODO
 %{multiarch_bindir}/gcryptrnd
 %{_bindir}/gcryptrnd
-%{_libdir}/lib*.so.%{major}
-%{_libdir}/lib*.so.%{major}.*
+%{_libdir}/libgcrypt.so.%{major}*
 
 %files -n %{devname}
 %doc ChangeLog README.*
 %exclude %{multiarch_bindir}
 %exclude %{_bindir}/gcryptrnd
 %{_bindir}/*
-%{_includedir}/*.h
-%{_libdir}/lib*.a
-%{_libdir}/lib*.so
+%{_includedir}/gcrypt.h
+%{_includedir}/gcrypt-module.h
+%{_libdir}/libgcrypt.a
+%{_libdir}/libgcrypt.so
 %{_libdir}/pkgconfig/libgcrypt.pc
-%{_datadir}/aclocal/*
+%{_datadir}/aclocal/libgcrypt.m4
 %{_infodir}/gcrypt.info*
