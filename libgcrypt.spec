@@ -17,6 +17,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
 Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
+Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	pth-devel
 
@@ -59,6 +60,8 @@ applications using libgcrypt. ( For example Ägypten project )
 %setup -q
 %patch1 -p1 -b .libdir~
 %patch2 -p1 -b .volatile~
+%patch3 -p1 -b .pkgconf~ 
+autoreconf -f
 
 %build
 %configure2_5x \
@@ -98,5 +101,6 @@ rm -f %{buildroot}%{_libdir}/lib*.la
 %{_includedir}/*.h
 %{_libdir}/lib*.a
 %{_libdir}/lib*.so
+%{_libdir}/pkgconfig/libgcrypt.pc
 %{_datadir}/aclocal/*
 %{_infodir}/gcrypt.info*
