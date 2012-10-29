@@ -4,11 +4,12 @@
 
 # disable tests by default, no /dev/random feed, no joy
 %bcond_with	check
+%bcond_without	uclibc
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.5.0
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -20,6 +21,9 @@ Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
 Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
 BuildRequires:	pkgconfig(gpg-error)
 BuildRequires:	pth-devel
+%if %{with uclibc}
+BuildRequires:	uClibc-devel >= 0.9.33.2-15
+%endif
 
 %description
 Libgcrypt is a general purpose cryptographic library
@@ -43,10 +47,26 @@ RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
 public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
 
+%package -n	uclibc-%{libname}
+Summary:	GNU Cryptographic library (uClibc build)
+Group:		System/Libraries
+
+%description -n	uclibc-%{libname}
+Libgcrypt is a general purpose cryptographic library
+based on the code from GNU Privacy Guard.  It provides functions for all
+cryptograhic building blocks: symmetric ciphers
+(AES,DES,Blowfish,CAST5,Twofish,Arcfour), hash algorithms (MD5,
+RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
+public key algorithms (RSA, ElGamal, DSA), large integer functions,
+random numbers and a lot of supporting functions.
+
 %package -n	%{devname}
 Summary:	Development files for GNU cryptographic library
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
+%if %{with uclibc}
+Requires:	uclibc-%{libname} = %{version}-%{release}
+%endif
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%mklibname -d gcrypt 11
 
@@ -64,23 +84,49 @@ applications using libgcrypt. ( For example Ägypten project )
 autoreconf -f
 
 %build
-%configure2_5x \
-	--enable-shared \
-	--enable-static \
-	--enable-m-guard
+CONFIGURE_TOP="$PWD"
+%if %{with uclibc}
+mkdir -p uclibc
+pushd uclibc
+%uclibc_configure \
+		--enable-shared \
+		--enable-static \
+		--enable-m-guard
 %make
+popd
+%endif
+
+mkdir -p system
+pushd system
+%configure2_5x	--enable-shared \
+		--enable-static \
+		--enable-m-guard
+%make
+popd
 
 %if %{with check}
 %check
-make check
+make -C system check
 %endif
 
 %install
-%makeinstall_std
+%if %{with uclibc}
+%makeinstall_std -C uclibc
+
+rm -r %{buildroot}%{uclibc_root}%{_libdir}/pkgconfig
+rm -r %{buildroot}%{uclibc_root}%{_bindir}
+%endif
+
+%makeinstall_std -C system
 
 %files -n %{libname}
 %doc AUTHORS README NEWS THANKS TODO
 %{_libdir}/libgcrypt.so.%{major}*
+
+%if %{with uclibc}
+%files -n uclibc-%{libname}
+%{uclibc_root}%{_libdir}/libgcrypt.so.%{major}*
+%endif
 
 %files -n %{devname}
 %doc ChangeLog README.*
@@ -89,6 +135,11 @@ make check
 %{_includedir}/gcrypt-module.h
 %{_libdir}/libgcrypt.a
 %{_libdir}/libgcrypt.so
+%if %{with uclibc}
+%{uclibc_root}%{_libdir}/libgcrypt.a
+%{uclibc_root}%{_libdir}/libgcrypt.so
+%endif
+
 %{_libdir}/pkgconfig/libgcrypt.pc
 %{_datadir}/aclocal/libgcrypt.m4
 %{_infodir}/gcrypt.info*
