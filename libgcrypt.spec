@@ -67,8 +67,6 @@ autoreconf -f
 %configure2_5x \
 	--enable-shared \
 	--enable-static \
-	--disable-dev-random \
-	--enable-random-daemon \
 	--enable-m-guard
 %make
 
@@ -80,20 +78,12 @@ make check
 %install
 %makeinstall_std
 
-mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
-
-%multiarch_binaries %{buildroot}%{_bindir}/gcryptrnd
-
 %files -n %{libname}
 %doc AUTHORS README NEWS THANKS TODO
-%{multiarch_bindir}/gcryptrnd
-%{_bindir}/gcryptrnd
 %{_libdir}/libgcrypt.so.%{major}*
 
 %files -n %{devname}
 %doc ChangeLog README.*
-%exclude %{multiarch_bindir}
-%exclude %{_bindir}/gcryptrnd
 %{_bindir}/*
 %{_includedir}/gcrypt.h
 %{_includedir}/gcrypt-module.h
