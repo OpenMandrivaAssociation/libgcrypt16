@@ -112,20 +112,26 @@ make -C system check
 %install
 %if %{with uclibc}
 %makeinstall_std -C uclibc
+mkdir -p %{buildroot}%{uclibc_root}/%{_lib}
+mv %{buildroot}%{uclibc_root}%{_libdir}/libgcrypt.so.%{major}* %{buildroot}%{uclibc_root}/%{_lib}
+ln -srf %{buildroot}%{uclibc_root}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{uclibc_root}%{_libdir}/libgcrypt.so
 
 rm -r %{buildroot}%{uclibc_root}%{_libdir}/pkgconfig
 rm -r %{buildroot}%{uclibc_root}%{_bindir}
 %endif
 
 %makeinstall_std -C system
+mkdir -p %{buildroot}/%{_lib}
+mv %{buildroot}%{_libdir}/libgcrypt.so.%{major}* %{buildroot}/%{_lib}
+ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/libgcrypt.so
 
 %files -n %{libname}
 %doc AUTHORS README NEWS THANKS TODO
-%{_libdir}/libgcrypt.so.%{major}*
+/%{_lib}/libgcrypt.so.%{major}*
 
 %if %{with uclibc}
 %files -n uclibc-%{libname}
-%{uclibc_root}%{_libdir}/libgcrypt.so.%{major}*
+%{uclibc_root}/%{_lib}/libgcrypt.so.%{major}*
 %endif
 
 %files -n %{devname}
@@ -139,7 +145,6 @@ rm -r %{buildroot}%{uclibc_root}%{_bindir}
 %{uclibc_root}%{_libdir}/libgcrypt.a
 %{uclibc_root}%{_libdir}/libgcrypt.so
 %endif
-
 %{_libdir}/pkgconfig/libgcrypt.pc
 %{_datadir}/aclocal/libgcrypt.m4
 %{_infodir}/gcrypt.info*
