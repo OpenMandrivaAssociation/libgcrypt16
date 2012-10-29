@@ -83,12 +83,6 @@ mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
 
 rm -f %{buildroot}%{_libdir}/lib*.la
 
-%post -n %{devname}
-%_install_info %{name}.info
-
-%postun -n %{devname}
-%_remove_install_info %{name}.info
-
 %files -n %{libname}
 %doc AUTHORS README NEWS THANKS TODO
 %{multiarch_bindir}/gcryptrnd
