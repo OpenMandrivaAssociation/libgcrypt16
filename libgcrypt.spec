@@ -84,8 +84,6 @@ mv %{buildroot}%{_sbindir}/gcryptrnd %{buildroot}%{_bindir}/gcryptrnd
 
 %multiarch_binaries %{buildroot}%{_bindir}/gcryptrnd
 
-rm -f %{buildroot}%{_libdir}/lib*.la
-
 %files -n %{libname}
 %doc AUTHORS README NEWS THANKS TODO
 %{multiarch_bindir}/gcryptrnd
