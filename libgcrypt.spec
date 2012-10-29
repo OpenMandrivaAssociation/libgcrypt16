@@ -3,7 +3,8 @@
 %define	devname	%mklibname gcrypt -d
 
 # disable tests by default, no /dev/random feed, no joy
-%bcond_with	check
+#(proyvind): conditionally reenabled it with a check for /dev/random first
+%bcond_without	check
 %bcond_without	uclibc
 
 Summary:	GNU Cryptographic library
@@ -106,7 +107,7 @@ popd
 
 %if %{with check}
 %check
-make -C system check
+test -c /dev/random && make -C system check
 %endif
 
 %install
