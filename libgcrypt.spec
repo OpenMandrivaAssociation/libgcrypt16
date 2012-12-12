@@ -10,7 +10,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.5.0
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -151,6 +151,9 @@ ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/li
 %{_infodir}/gcrypt.info*
 
 %changelog
+* Wed Dec 12 2012 Per ?yvind Karlsen <peroyvind@mandriva.org> 1.5.0-5
+- rebuild on ABF
+
 * Mon Oct 29 2012 Per ?yvind Karlsen <peroyvind@mandriva.org> 1.5.0-4
 + Revision: 820339
 - reenable regression tests
