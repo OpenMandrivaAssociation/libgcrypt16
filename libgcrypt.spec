@@ -10,7 +10,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.5.0
-Release:	5
+Release:	6
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -20,6 +20,7 @@ Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
 Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
 Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
+Patch4:		libgcrypt-automake-1.13.patch
 BuildRequires:	pkgconfig(gpg-error)
 BuildRequires:	pth-devel
 %if %{with uclibc}
@@ -79,10 +80,12 @@ applications using libgcrypt. ( For example Ägypten project )
 
 %prep
 %setup -q
-%patch1 -p1 -b .libdir~
-%patch2 -p1 -b .volatile~
-%patch3 -p1 -b .pkgconf~ 
-autoreconf -f
+%apply_patches
+
+autoheader
+aclocal
+automake -a
+autoconf
 
 %build
 CONFIGURE_TOP="$PWD"
