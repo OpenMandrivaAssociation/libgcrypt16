@@ -16,7 +16,6 @@ Group:		System/Libraries
 Url:		http://www.gnupg.org/
 # don't convert to bzip2, since we ship archive signature
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
 Patch1:		libgcrypt-1.2.0-libdir.patch
 Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
 Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
