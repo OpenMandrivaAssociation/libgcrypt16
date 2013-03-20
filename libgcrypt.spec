@@ -20,6 +20,7 @@ Patch1:		libgcrypt-1.2.0-libdir.patch
 Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
 Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
 Patch4:		libgcrypt-automake-1.13.patch
+Patch5:		libgcrypt-aarch64.patch
 BuildRequires:	pkgconfig(gpg-error)
 BuildRequires:	pth-devel
 %if %{with uclibc}
