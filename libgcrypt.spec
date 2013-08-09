@@ -10,7 +10,7 @@
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
 Version:	1.5.0
-Release:	7
+Release:	8
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -49,6 +49,7 @@ RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
 public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
 
+%if %{with uclibc}
 %package -n	uclibc-%{libname}
 Summary:	GNU Cryptographic library (uClibc build)
 Group:		System/Libraries
@@ -61,6 +62,7 @@ cryptograhic building blocks: symmetric ciphers
 RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all hash algorithms),
 public key algorithms (RSA, ElGamal, DSA), large integer functions,
 random numbers and a lot of supporting functions.
+%endif
 
 %package -n	%{devname}
 Summary:	Development files for GNU cryptographic library
@@ -127,7 +129,6 @@ mv %{buildroot}%{_libdir}/libgcrypt.so.%{major}* %{buildroot}/%{_lib}
 ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/libgcrypt.so
 
 %files -n %{libname}
-%doc AUTHORS README NEWS THANKS TODO
 /%{_lib}/libgcrypt.so.%{major}*
 
 %if %{with uclibc}
@@ -136,7 +137,7 @@ ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/li
 %endif
 
 %files -n %{devname}
-%doc ChangeLog README.*
+%doc AUTHORS README* NEWS THANKS TODO ChangeLog
 %{_bindir}/*
 %{_includedir}/gcrypt.h
 %{_includedir}/gcrypt-module.h
