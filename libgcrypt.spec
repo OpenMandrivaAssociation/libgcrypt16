@@ -6,6 +6,7 @@
 #(proyvind): conditionally reenabled it with a check for /dev/random first
 %bcond_without	check
 %bcond_without	uclibc
+%bcond_with	crosscompile
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
@@ -86,6 +87,9 @@ automake -a
 autoconf
 
 %build
+%if %{with crosscompile}
+ac_cv_sys_symbol_underscore=no
+%endif
 CONFIGURE_TOP="$PWD"
 %if %{with uclibc}
 mkdir -p uclibc
@@ -103,6 +107,9 @@ pushd system
 %configure2_5x \
 	--enable-shared \
 	--enable-static \
+%if %{with crosscompile}
+	--with-gpg-error-prefix=$SYSROOT/%{_prefix} \
+%endif
 	--enable-m-guard
 %make
 popd
