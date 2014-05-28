@@ -1,4 +1,4 @@
-%define	major	11
+%define	major	20
 %define	libname	%mklibname gcrypt %{major}
 %define	devname	%mklibname gcrypt -d
 
@@ -10,17 +10,25 @@
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
-Version:	1.5.0
-Release:	12
+Version:	1.6.1
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
+
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-Patch1:		libgcrypt-1.2.0-libdir.patch
-Patch2:		libgcrypt-1.5.0-gcry_mpi_print-volatile-len-variable.patch
-Patch3:		libgcrypt-1.5.0-add-pkgconfig-support.patch 
-Patch4:		libgcrypt-automake-1.13.patch
-Patch5:		libgcrypt-aarch64.patch
+Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
+
+Patch0:		libgcrypt-1.2.0-libdir.patch
+Patch1:		libgcrypt-1.6.1-add-pkgconfig-support.patch 
+Patch2:		libgcrypt-1.6.1-fix-a-couple-of-tests.patch
+# fix for memory leaks an other errors found by Coverity scan
+Patch9:		libgcrypt-1.6.1-leak.patch
+# use poll instead of select when gathering randomness
+Patch11:	libgcrypt-1.6.1-use-poll.patch
+# slight optimalization of mpicoder.c to silence Valgrind (#968288)
+Patch13:	libgcrypt-1.6.1-mpicoder-gccopt.patch
+Patch15:	libgcrypt-1.6.1-make-arm-asm-fPIC-friendly.patch
 
 BuildRequires:	pth-devel
 BuildRequires:	pkgconfig(gpg-error)
@@ -81,10 +89,7 @@ This package contains files needed to develop applications using libgcrypt.
 %setup -q
 %apply_patches
 
-autoheader
-aclocal
-automake -a
-autoconf
+autoreconf -fiv
 
 %build
 %if %{with crosscompile}
@@ -147,7 +152,6 @@ ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/li
 %doc AUTHORS README* NEWS THANKS TODO ChangeLog
 %{_bindir}/*
 %{_includedir}/gcrypt.h
-%{_includedir}/gcrypt-module.h
 %{_libdir}/libgcrypt.a
 %{_libdir}/libgcrypt.so
 %if %{with uclibc}
@@ -156,5 +160,5 @@ ln -srf %{buildroot}/%{_lib}/libgcrypt.so.%{major}.*.* %{buildroot}%{_libdir}/li
 %endif
 %{_libdir}/pkgconfig/libgcrypt.pc
 %{_datadir}/aclocal/libgcrypt.m4
+%{_mandir}/man1/hmac256.1*
 %{_infodir}/gcrypt.info*
-

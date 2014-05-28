@@ -1,2 +1,3 @@
 sources:
-  libgcrypt-1.5.0.tar.bz2: 3e776d44375dc1a710560b98ae8437d5da6e32cf
+  libgcrypt-1.6.1.tar.bz2: f03d9b63ac3b17a6972fc11150d136925b702f02
+  libgcrypt-1.6.1.tar.bz2.sig: 1f5cb3c35989c53c6393d8d41518b34f53161ec3
