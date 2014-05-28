@@ -102,7 +102,8 @@ pushd uclibc
 %uclibc_configure \
 	--enable-shared \
 	--enable-static \
-	--enable-m-guard
+	--enable-m-guard \
+	--disable-amd64-as-feature-detection	
 %make
 popd
 %endif
@@ -121,6 +122,12 @@ popd
 
 %if %{with check}
 %check
+# (proyvind): some features (ie. amd64-as-feature-detection) breaks with
+# uClibc build, so we need to run checks for uClibc build as well..
+%if %{with uclibc}
+test -c /dev/random && make -C uclibc check
+%endif
+
 test -c /dev/random && make -C system check
 %endif
 
