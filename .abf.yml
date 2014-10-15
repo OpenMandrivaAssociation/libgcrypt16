@@ -1,3 +1,5 @@
-sources:
+removed_sources:
   libgcrypt-1.6.1.tar.bz2: f03d9b63ac3b17a6972fc11150d136925b702f02
-  libgcrypt-1.6.1.tar.bz2.sig: 1f5cb3c35989c53c6393d8d41518b34f53161ec3
+sources:
+  libgcrypt-1.6.2.tar.bz2: cc31aca87e4a3769cb86884a3f5982b2cc8eb7ec
+  libgcrypt-1.6.2.tar.bz2.sig: c8192086595dbadcb3fef2b2ff36d2a6fab682f3

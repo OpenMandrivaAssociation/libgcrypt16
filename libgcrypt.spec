@@ -10,8 +10,8 @@
 
 Summary:	GNU Cryptographic library
 Name:		libgcrypt
-Version:	1.6.1
-Release:	3
+Version:	1.6.2
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnupg.org/
@@ -28,7 +28,6 @@ Patch9:		libgcrypt-1.6.1-leak.patch
 Patch11:	libgcrypt-1.6.1-use-poll.patch
 # slight optimalization of mpicoder.c to silence Valgrind (#968288)
 Patch13:	libgcrypt-1.6.1-mpicoder-gccopt.patch
-Patch15:	libgcrypt-1.6.1-make-arm-asm-fPIC-friendly.patch
 
 BuildRequires:	pth-devel
 BuildRequires:	pkgconfig(gpg-error)
@@ -116,7 +115,8 @@ pushd system
 %if %{with crosscompile}
 	--with-gpg-error-prefix=$SYSROOT/%{_prefix} \
 %endif
-	--enable-m-guard
+	--enable-m-guard \
+	--disable-amd64-as-feature-detection
 %make
 popd
 
@@ -125,7 +125,7 @@ popd
 # (proyvind): some features (ie. amd64-as-feature-detection) breaks with
 # uClibc build, so we need to run checks for uClibc build as well..
 %if %{with uclibc}
-test -c /dev/random && make -C uclibc check
+test -c /dev/random && LD_LIBRARY_PATH=$PWD/uclibc/src/.libs make -C uclibc check
 %endif
 
 test -c /dev/random && make -C system check
