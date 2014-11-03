@@ -1,3 +1,10 @@
+\\\\
+\\\\
+\\\\
+USE libgcrypt git repo for this package
+\\\\
+\\\\
+\\\\
 %define	major	20
 %define	libname	%mklibname gcrypt %{major}
 %define	devname	%mklibname gcrypt -d
