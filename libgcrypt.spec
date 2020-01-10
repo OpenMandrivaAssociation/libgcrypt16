@@ -93,7 +93,7 @@ This package contains files needed to develop applications using libgcrypt.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 autoreconf -fiv
 
