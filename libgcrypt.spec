@@ -21,7 +21,7 @@ Version:	1.6.2
 Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		http://www.gnupg.org/
+Url:		https://www.gnupg.org/
 
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2.sig
