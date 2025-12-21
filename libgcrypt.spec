@@ -36,6 +36,11 @@ Patch11:	libgcrypt-1.6.1-use-poll.patch
 # slight optimalization of mpicoder.c to silence Valgrind (#968288)
 Patch13:	libgcrypt-1.6.1-mpicoder-gccopt.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pth-devel
 BuildRequires:	pkgconfig(gpg-error)
 %if %{with uclibc}
